@@ -18,9 +18,19 @@ from django.contrib import admin
 from django.urls import path
 
 from ecommerce import views as ecom_views
+from homePage import views as homePage_views
+from categoryPage import views as categoryPage_views
+from productPage import views as productPage_views
+from checkOutPage import views as checkOutPage_views
+from contactPage import views as contactPage_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('ecommerce/', ecom_views.ecommerce_index_view),
-    path('ecommerce/item/<item_id>', ecom_views.item_view)
+    path('ecommerce/item/<item_id>', ecom_views.item_view),
+    path('homePage/', homePage_views.homePage_index_view),
+    path('category/',categoryPage_views.categoryPage_index_view),
+    path('product',productPage_views.productPage_index_view),
+    path('checkOut',checkOutPage_views.checkOutPage_index_view),
+    path('contact',contactPage_views.contactPage_index_view),
 ]
