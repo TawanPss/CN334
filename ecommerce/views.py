@@ -3,6 +3,9 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import requests
 
+
+Apikey='o5w87jBvYh7PiLfDbmKDtEoEb7DX7hqu'
+
 # Create your views here.
 def ecommerce_index_view(request) :
     '''This function render index page of ecommerce view'''
@@ -57,5 +60,21 @@ def sentimental(request):
  
         response = requests.post(url, data=data, headers=headers)
         response_json = response.json()
-        return JsonResponse({"student":"student_id", "sentimental":response_json}, safe=False)
+        return JsonResponse({"student":"6410742131", "sentimental":response_json}, safe=False)
+    return JsonResponse({"error":"Method not allowed!"}, safe=False, status=403)
+
+@csrf_exempt
+def text2speech(request):
+    if request.method == "POST":
+        try:
+            sentence = request.POST['text']
+        except:
+            return JsonResponse({"error":"Input not found"}, safe=False, status=500)
+        url = 'https://api.aiforthai.in.th/vaja9/synth_audiovisual'
+        headers = {'Apikey':Apikey,'Content-Type' : 'application/json'}
+        text = sentence
+        data = {'input_text':text,'speaker': 1, 'phrase_break':0, 'audiovisual':0}
+        response = requests.post(url, json=data, headers=headers)
+        response_json = response.json()
+        return JsonResponse({"student":"6410742131", "text2speech":response_json}, safe=False)
     return JsonResponse({"error":"Method not allowed!"}, safe=False, status=403)
